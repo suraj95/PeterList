@@ -5,6 +5,7 @@ from random import randint
 import random
 import time
 import math
+import json #Couchbase edit
 
 jobIndustry_list = ['Accounting','Art', 'Automotive','Banking', \
  'Management','Consultant','Customer Service','Education','Engineering', \
@@ -99,6 +100,10 @@ endDate = "2017-11-28T23:59:59"
 text_file = open("ownersampledata.adm","w")
 text_file2 = open("sampledata.adm","w")
 
+#Couchbase Edit
+filename="owner_data"
+filename2="sample_data"
+
 for i in range(1,101):
 
     userID_postID_list = []
@@ -136,6 +141,9 @@ for i in range(1,101):
     text_file2.write(job_string.format(postID,streetName,buildingNumber,city,state,randomDateTime,description,amount,userID,auto_email,jobType,jobIndustry,\
                                        organizationName,jobTitle,jobRequirement))
     text_file2.write("\n")
+    json_file2 = open(filename2+"/"+filename2+str(i)+"-1","w")
+    json_file2.write(job_string.format(postID,streetName,buildingNumber,city,state,randomDateTime,description,amount,userID,auto_email,jobType,jobIndustry,\
+                                       organizationName,jobTitle,jobRequirement))
 
 
     
@@ -168,6 +176,9 @@ for i in range(1,101):
     text_file2.write(event_string.format(postID,streetName,buildingNumber,city,state,randomDateTime,description,amount,userID,auto_email,randomStartDate,\
                                        randomEndDate,eventCategory,organizationName,eventTitle,eventPhoto))
     text_file2.write("\n")
+    json_file2 = open(filename2+"/"+filename2+str(i)+"-2","w")
+    json_file2.write(event_string.format(postID,streetName,buildingNumber,city,state,randomDateTime,description,amount,userID,auto_email,randomStartDate,\
+                                       randomEndDate,eventCategory,organizationName,eventTitle,eventPhoto))
 
     #Item_sale string done
 
@@ -195,6 +206,9 @@ for i in range(1,101):
     text_file2.write(itemSale_string.format(postID,streetName,buildingNumber,city,state,randomDateTime,description,amount,userID,auto_email,itemName,\
                                        itemCategory,condition))
     text_file2.write("\n")
+    json_file2 = open(filename2+"/"+filename2+str(i)+"-3","w")
+    json_file2.write(itemSale_string.format(postID,streetName,buildingNumber,city,state,randomDateTime,description,amount,userID,auto_email,itemName,\
+                                       itemCategory,condition))
 
 
 #     lostFound_string = '{{"postID": "{0}", "postInfo":{{"location":{{"streetName": "{1}","buildingNumber": {2}, "city": "{3}","state": "{4}","country": "United States of America","zip": 92612}},"dateTime": {5},\
@@ -261,7 +275,9 @@ for i in range(1,101):
     text_file2.write(housing_sale_string.format(postID,streetName,buildingNumber,city,state,randomDateTime,description,amount,userID,auto_email,bedroom,bathroom,\
                                        homeType,size,dateAvailable,furnished,parkingNumber,locality,housingPhoto))
     text_file2.write("\n")
-
+    json_file2 = open(filename2+"/"+filename2+str(i)+"-4","w")
+    json_file2.write(housing_sale_string.format(postID,streetName,buildingNumber,city,state,randomDateTime,description,amount,userID,auto_email,bedroom,bathroom,\
+                                       homeType,size,dateAvailable,furnished,parkingNumber,locality,housingPhoto))
 
 
 
@@ -309,6 +325,9 @@ for i in range(1,101):
     text_file2.write(housing_lease_string.format(postID,streetName,buildingNumber,city,state,randomDateTime,description,amount,userID,auto_email,bedroom,bathroom,\
                                        homeType,size,dateAvailable,furnished,hasParking,locality,petAllowed, randomEndDate,occupants, roommates,housingPhoto))
     text_file2.write("\n")
+    json_file2 = open(filename2+"/"+filename2+str(i)+"-5","w")
+    json_file2.write(housing_lease_string.format(postID,streetName,buildingNumber,city,state,randomDateTime,description,amount,userID,auto_email,bedroom,bathroom,\
+                                       homeType,size,dateAvailable,furnished,hasParking,locality,petAllowed, randomEndDate,occupants, roommates,housingPhoto))
 
 
     user_string = '{{"userID": "{0}","firstName": "{1}", "lastName": "{2}", "phone": "{3}", "email": "{4}", "password": "{5}", "userPostings": {6}}}'
@@ -318,10 +337,12 @@ for i in range(1,101):
     userPhone = phn();
     useremailID = generate_random_emails(10,7)[1];
     userPassword = password_generator()
-    userPostings_list = userID_postID_list
+    userPostings_list = json.dumps(userID_postID_list) #json does not allow single quotes
     
     text_file.write(user_string.format(userID,userFirstName,userLastName,userPhone,useremailID,userPassword,userPostings_list))
     text_file.write("\n")
+    json_file = open(filename+"/"+filename+str(i),"w")
+    json_file.write(user_string.format(userID,userFirstName,userLastName,userPhone,useremailID,userPassword,userPostings_list))
 
     
     
